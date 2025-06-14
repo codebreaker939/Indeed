@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/employer_css/emplyrhome.css">
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="container">
+       
+        <div class="sidebar" id="sidebar">
+            <div class="logo">
+                
+                <span>Employer Dashboard</span>
+            </div>
+            <a href="#" data-page="dashboard" class="active"><span>🏠</span> <span>Dashboard</span></a>
+            <div class="dropdown">
+                <div class="dropdown-toggle" onclick="toggleJobsDropdown()">📋 Jobs ▼</div>
+                <div class="dropdown-menu" id="jobs-dropdown">
+                    <a href="#" data-page="job-postings">Job Postings</a>
+                    <a href="#" data-page="admin">Admin</a>
+                </div>
+            </div>
+            <a href="#" data-page="candidates"><span>👥</span> <span>Candidates</span></a>
+            <div class="dropdown">
+                <div class="dropdown-toggle" onclick="toggleDropdown()">📅 Interviews ▼</div>
+                <div class="dropdown-menu" id="interview-dropdown">
+                    <a href="#" data-page="interviews">Scheduled Interviews</a>
+                    <a href="#" data-page="past-interviews">Past Interviews</a>
+                </div>
+            </div>
+            <a href="#" data-page="analytics"><span>📊</span> <span>Analytics</span></a>
+            <a href="#" data-page="settings"><span>⚙️</span> <span>Settings</span></a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="main-content">
+            <div class="header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-menu">
+                    <span>John Doe</span>
+                    <img src="/img/me.png" alt="User Avatar">
+                </div>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page">
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Active Jobs</h3>
+                        <p id="active-jobs">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Applications</h3>
+                        <p id="applications">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Views</h3>
+                        <p id="views">0</p>
+                    </div>
+                </div>
+                <div class="job-listings">
+                    <h2>Recent Job Postings</h2>
+                    <input type="text" id="job-search" placeholder="Search jobs..." oninput="searchJobs()">
+                    <table id="job-table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Location</th>
+                                <th>Applications</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Job Postings Subpage -->
+            <div id="job-postings" class="page" style="display: none;">
+                <div class="job-listings">
+                    <h2>Manage Job Postings</h2>
+                    <div class="filters">
+                        <input type="text" id="job-postings-search" placeholder="Search jobs..." oninput="filterJobPostings()">
+                        <select id="job-status-filter" onchange="filterJobPostings()">
+                            <option value="all">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                        <select id="job-location-filter" onchange="filterJobPostings()">
+                            <option value="all">All Locations</option>
+                            <option value="New York, NY">New York, NY</option>
+                            <option value="San Francisco, CA">San Francisco, CA</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Chicago, IL">Chicago, IL</option>
+                        </select>
+                    </div>
+                    <button onclick="openJobForm('create')">Create New Job</button>
+                    <table id="job-postings-table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Location</th>
+                                <th>Salary</th>
+                                <th>Posted Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Admin Subpage -->
+            <div id="admin" class="page" style="display: none;">
+                <div class="admin">
+                    <h2>Admin - Manage Users</h2>
+                    <div class="filters">
+                        <input type="text" id="user-search" placeholder="Search users..." oninput="filterUsers()">
+                        <select id="user-role-filter" onchange="filterUsers()">
+                            <option value="all">All Roles</option>
+                            <option value="Recruiter">Recruiter</option>
+                            <option value="Hiring Manager">Hiring Manager</option>
+                        </select>
+                    </div>
+                    <button onclick="openUserForm('create')">Add New User</button>
+                    <table id="user-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Candidates Page -->
+            <div id="candidates" class="page" style="display: none;">
+                <div class="candidates">
+                    <h2>Candidate Management</h2>
+                    <div class="filters">
+                        <select id="status-filter" onchange="filterCandidates()">
+                            <option value="all">All Statuses</option>
+                            <option value="Under Review">Under Review</option>
+                            <option value="Interview Scheduled">Interview Scheduled</option>
+                        </select>
+                        <select id="role-filter" onchange="filterCandidates()">
+                            <option value="all">All Roles</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="Product Manager">Product Manager</option>
+                        </select>
+                    </div>
+                    <table id="candidate-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Applied For</th>
+                                <th>Application Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Interviews Page -->
+            <div id="interviews" class="page" style="display: none;">
+                <div class="interviews">
+                    <h2>Scheduled Interviews</h2>
+                    <div class="calendar">
+                        <div class="calendar-nav">
+                            <button onclick="prevMonth()">Previous</button>
+                            <span id="calendar-month">June 2025</span>
+                            <button onclick="nextMonth()">Next</button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    <h3>List View</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="interview-list">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Past Interviews Page -->
+            <div id="past-interviews" class="page" style="display: none;">
+                <div class="interviews">
+                    <h2>Past Interviews</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Date</th>
+                                <th>Outcome</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alice Brown</td>
+                                <td>2025-05-20</td>
+                                <td>Hired</td>
+                                <td><button onclick="showInterviewDetails('3')">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div id="analytics" class="page" style="display: none;">
+                <div class="analytics">
+                    <h2>Analytics</h2>
+                    <p>Application Trends: <span id="trend-data">+15% this month</span></p>
+                    <p>Total Views: <span id="view-data">5,678</span></p>
+                    <p>Top Job: Software Engineer (1,200 views)</p>
+                    <div class="chart" id="analytics-chart">
+                        <div class="bar" style="height: 50%"></div>
+                        <div class="bar" style="height: 70%"></div>
+                        <div class="bar" style="height: 90%"></div>
+                        <div class="bar" style="height: 60%"></div>
+                        <div class="bar" style="height: 80%"></div>
+                    </div>
+                    <button onclick="exportAnalytics()">Export Data</button>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings" class="page" style="display: none;">
+                <div class="settings">
+                    <h2>Settings</h2>
+                    <form onsubmit="event.preventDefault(); saveSettings();">
+                        <div>
+                            <label>Company Name:</label>
+                            <input type="text" id="company-name" value="Example Corp">
+                        </div>
+                        <div>
+                            <label>Email Notifications:</label>
+                            <input type="checkbox" id="email-notifications" checked>
+                        </div>
+                        <div>
+                            <label>Theme:</label>
+                            <select id="theme-toggle" onchange="toggleTheme()">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <button type="submit">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="job-modal">
+        <div class="modal-content">
+            <h3 id="job-modal-title">Create Job</h3>
+            <form id="job-form" onsubmit="event.preventDefault(); saveJob();">
+                <div>
+                    <label>Title:</label>
+                    <input type="text" id="job-title" required>
+                </div>
+                <div>
+                    <label>Location:</label>
+                    <input type="text" id="job-location" required>
+                </div>
+                <div>
+                    <label>Salary Range:</label>
+                    <input type="number" id="job-salary" min="0" required>
+                </div>
+                <div>
+                    <label>Status:</label>
+                    <select id="job-status">
+                        <option value="Active">Active</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+                <button type="submit">Save</button>
+                <button type="button" onclick="closeModal('job-modal')">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="user-modal">
+        <div class="modal-content">
+            <h3 id="user-modal-title">Add User</h3>
+            <form id="user-form" onsubmit="event.preventDefault(); saveUser();">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" id="user-name" required>
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                <div>
+                    <label>Role:</label>
+                    <select id="user-role" required>
+                        <option value="Recruiter">Recruiter</option>
+                        <option value="Hiring Manager">Hiring Manager</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Status:</label>
+                    <select id="user-status">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+                <button type="submit">Save</button>
+                <button type="button" onclick="closeModal('user-modal')">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="candidate-modal">
+        <div class="modal-content">
+            <h3>Candidate Profile</h3>
+            <p><strong>Name:</strong> <span id="candidate-name"></span></p>
+            <p><strong>Applied For:</strong> <span id="candidate-role"></span></p>
+            <p><strong>Status:</strong> <span id="candidate-status"></span></p>
+            <p><strong>Email:</strong> <span id="candidate-email"></span></p>
+            <button onclick="closeModal('candidate-modal')">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="interview-modal">
+        <div class="modal-content">
+            <h3>Interview Details</h3>
+            <p><strong>Candidate:</strong> <span id="interview-candidate"></span></p>
+            <p><strong>Date:</strong> <span id="interview-date"></span></p>
+            <p><strong>Time:</strong> <span id="interview-time"></span></p>
+            <button onclick="closeModal('interview-modal')">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <h3 id="confirm-title">Confirm Action</h3>
+            <p id="confirm-message"></p>
+            <button id="confirm-action">Confirm</button>
+            <button onclick="closeModal('confirm-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <script src="/employer_script/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Inter', sans-serif;
+  background: #f9fafb;
+  color: #1f2937;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+header {
+  background-color: #1e40af;
+  color: #fff;
+  text-align: center;
+  padding: 30px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Form & Preview Section */
+.form-section,
+.preview-section {
+  flex: 1 1 500px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 30px 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 5px;
+}
+
+/* Input Styles */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #f9fafb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Buttons */
+button {
+  padding: 10px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+  transform: scale(1.03);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Remove Button */
+button[type="button"]:not(:last-child) {
+  background-color: #ef4444;
+}
+
+button[type="button"]:not(:last-child):hover {
+  background-color: #dc2626;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  flex: 1;
+}
+
+/* Preview Styling */
+.preview-section h2 {
+  font-size: 2rem;
+  color: #111827;
+  text-align: center;
+}
+
+.preview-section p {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.preview-section h3 {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  color: #1f2937;
+}
+
+.preview-section ul {
+  list-style: disc;
+  padding-left: 20px;
+  color: #374151;
+}
+
+/* Resume Entry Fields */
+.edu-item,
+.exp-item {
+  margin-bottom: 20px;
+  border-left: 4px solid #3b82f6;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+input.skill-item {
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .form-section,
+  .preview-section {
+    flex: 1 1 100%;
+  }
+}
