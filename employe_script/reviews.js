@@ -290,8 +290,7 @@ function findcompany() {
     box.style.width = "300px";
     box.style.marginBottom = "30px";
     box.style.marginTop = "30px";
-    // var h2 = document.createElement("h2");
-    // h2.innerText = "Searched Company";
+   
      document.getElementById("display-h2").style.display ="block";
     var hr = document.createElement("hr");
     hr.style.backgroundColor = "gray";

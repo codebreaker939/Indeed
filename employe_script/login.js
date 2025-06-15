@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const signInBtn = document.getElementById("signIn");
 
-  // Reset dummy users for testing
+
   localStorage.setItem("user", JSON.stringify([
     { Email: "employee@test.com", Password: "emp123", Role: "employee" },
     { Email: "employer@test.com", Password: "hr123", Role: "employer" }
